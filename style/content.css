@@ -1,7 +1,7 @@
 body {
   background-color: rgb(36, 36, 36);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
-             'Helvetica Neue', Arial, sans-serif;
+  font-family: Circular, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', Arial, sans-serif;
   overflow: hidden;
 }
 
@@ -27,10 +27,104 @@ body {
   height: 100vh;
 }
 
-.sec-1 {background-color: #ffebee;}
-.sec-2 {background-color: #fff3e0;}
-.sec-3 {background-color: #e8f5e9;}
-.sec-4 {background-color: #f3e5f5;;}
-.sec-5 {background-color: #e3f2fd;}
-.sec-6 {background-color: #fff8e1;}
-.sec-7 {background-color: #f1f8e9;}
+.sec-1 {
+  background-color: #ffebee;
+}
+
+.sec-2 {
+  background-color: #fff3e0;
+}
+
+.sec-3 {
+  background-color: #e8f5e9;
+}
+
+.sec-4 {
+  background-color: #f3e5f5;
+}
+
+.sec-5 {
+  background-color: #e3f2fd;
+}
+
+.sec-6 {
+  background-color: #fff8e1;
+}
+
+.sec-7 {
+  background-color: #f1f8e9;
+}
+
+/* Content Styling */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+h2 {
+  font-size: 2em;
+  margin-top: 20px;
+  color: #444;
+}
+
+h3 {
+  font-size: 1.5em;
+  color: #555;
+}
+
+.main-text {
+  font-size: 1.5em;
+  color: #555;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  font-size: 1.2em;
+  margin: 10px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #d32f2f;
+  /* Red bullet for patriotism */
+}
+
+.image-placeholder {
+  background-color: #ddd;
+  border: 2px dashed #999;
+  color: #666;
+  padding: 20px;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.highlight {
+  font-weight: bold;
+  color: #d32f2f;
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.detail-block {
+  margin-bottom: 30px;
+}

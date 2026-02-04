@@ -1,12 +1,37 @@
+/* Clean Premium Report Style (Refined Layout) */
+
 body {
-  background-color: rgb(36, 36, 36);
-  font-family: Circular, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
-             'Helvetica Neue', Arial, sans-serif;
+  background-color: #000;
+  /* Fallback */
+  color: #eeeeee;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Noise Overlay - Keep for Premium Feel */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Grid Line Separating Sidebar - Removed for Unified Look */
+body::before {
+  display: none;
 }
 
 * {
-  transition: all 0.3s;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
 }
 
 .vid-bg {
@@ -14,42 +39,482 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: -100;
+  z-index: 0;
+  /* Changed from -1 to 0 to be visible over body bg */
+}
+
+.vid-bg video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  opacity: 0.6;
+  filter: grayscale(100%) contrast(1.1);
 }
 
 .title {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 55%;
+  /* Slightly offset from sidebar area */
   transform: translate(-50%, -50%);
-  color: #f1faee;
-  background-color: rgba(36, 36, 36, 0.7);
-  padding: 100px 50px;
-  border-radius: 22px;
-  font-size: 50px;
-  width: 1300px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Transparent glass look */
+  backdrop-filter: blur(10px);
+  padding: 80px 60px;
+  border-radius: 20px;
+  font-size: 3.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 60%;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  z-index: 2;
 }
 
 .content {
-  background-color: rgb(36, 36, 36);
-  width: 100%;
-  height: 110%;
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: none;
+  background-color: #0c0c0c;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: none;
+  overflow: hidden;
 }
 
-
+/* Navigation Animation */
 @keyframes slideOut {
-  from {transform: translate(-50%, -50%);}
-  to {transform: translate(-50%, 50%);}
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(30px);
+    opacity: 0;
+  }
 }
 
 @keyframes slideIn {
-  from {transform: translate(-50%, 50%);}
-  to {transform: translate(-50%, -50%);}
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Content Layout --- */
+
+.view-point {
+  display: flex;
+  width: 700vw;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.section {
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #0c0c0c;
+}
+
+/* Section Backdrops */
+.sec-1::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 50%, #2b0c0c, transparent);
+  opacity: 0.3;
+}
+
+.sec-2::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 50%, #2b0c0c, transparent);
+  opacity: 0.5;
+}
+
+.sec-3::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 50%, #0c2b0c, transparent);
+  opacity: 0.3;
+}
+
+.sec-4::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 50%, #0c0c2b, transparent);
+  opacity: 0.3;
+}
+
+/* ... and so on for others to add depth ... */
+
+/* --- Architecture: Vertical Sidebar --- */
+.toc-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  /* Reliable width */
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+  z-index: 2000;
+
+  /* Unified Look: Gradient instead of solid block */
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 60%, transparent 100%);
+  backdrop-filter: none;
+  /* Removed blur to let video show through clearly */
+}
+
+.toc-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+  height: 40px;
+  position: relative;
+}
+
+.toc-number {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 700;
+  font-size: 16px;
+  color: #555;
+  margin-right: 25px;
+  transition: color 0.3s ease;
+}
+
+.toc-label {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: all 0.4s ease;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.toc-item:hover .toc-number,
+.toc-item.active .toc-number {
+  color: #d4af37;
+  /* Gold highlight */
+}
+
+.toc-item:hover .toc-label,
+.toc-item.active .toc-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toc-item.active .toc-label {
+  color: #d4af37;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+/* --- Container: Slide Content --- */
+.container {
+  max-width: 900px;
+  margin-left: 380px;
+  /* Clearly separated from 300px sidebar + 80px gap */
+  padding: 60px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 15;
+}
+
+.content h1 {
+  font-size: 3rem;
+  /* Elegant magazine size */
+  margin-bottom: 25px;
+  color: #fff;
+  font-weight: 800;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.content h2 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.2rem;
+  margin-top: 30px;
+  color: #d4af37;
+  /* Gold accent */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.content h3,
+.main-text,
+.content p {
+  font-size: 1.3rem;
+  color: #ccc;
+  font-weight: 400;
+  line-height: 1.6;
+  /* Breathing room */
+  max-width: 650px;
+  opacity: 0;
+  transform: translateY(20px);
+  margin-bottom: 20px;
+}
+
+.content ul {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.content li {
+  font-size: 1.1rem;
+  margin: 15px 0;
+  color: #aaa;
+  line-height: 1.5;
+  opacity: 0;
+  transform: translateY(20px);
+  display: flex;
+  align-items: flex-start;
+}
+
+.content li::before {
+  content: "—";
+  color: #d4af37;
+  margin-right: 15px;
+}
+
+.image-placeholder {
+  font-family: 'Courier New', Courier, monospace;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #666;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  padding: 20px 30px;
+  margin-top: 30px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.highlight {
+  font-size: 10vw;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(212, 175, 55, 0.1);
+  opacity: 0.8;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+  font-weight: 900;
+  pointer-events: none;
+}
+
+/* Animations */
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translate(0);
+  }
+}
+
+.section.active h1 {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.2s;
+}
+
+.section.active h2 {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.3s;
+}
+
+.section.active p,
+.section.active .main-text {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.4s;
+}
+
+.section.active li {
+  animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.6s;
+}
+
+.section.active .image-placeholder {
+  animation: reveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.7s;
+}
+
+.section.active .highlight {
+  animation: reveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+/* Tablet Layout (768px - 1023px) */
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+
+  /* Reduce TOC width */
+  .toc-sidebar {
+    width: 200px;
+    padding-left: 30px;
+  }
+
+  .toc-number {
+    font-size: 14px;
+    margin-right: 15px;
+  }
+
+  .toc-label {
+    font-size: 10px;
+  }
+
+  /* Adjust container margins */
+  .container {
+    margin-left: 250px;
+    padding: 40px;
+    max-width: 700px;
+  }
+
+  /* Scale down fonts */
+  .content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  .content h2 {
+    font-size: 1.1rem;
+    margin-top: 20px;
+  }
+
+  .content h3,
+  .main-text,
+  .content p {
+    font-size: 1.15rem;
+    max-width: 550px;
+  }
+
+  .content li {
+    font-size: 1rem;
+    margin: 12px 0;
+  }
+
+  /* Adjust title */
+  .title {
+    font-size: 2.5rem;
+    padding: 60px 40px;
+    width: 70%;
+    left: 50%;
+  }
+
+  .highlight {
+    font-size: 8vw;
+  }
+}
+
+/* Mobile Layout (<768px) */
+@media screen and (max-width: 767px) {
+
+  /* Hide TOC sidebar on mobile */
+  .toc-sidebar {
+    display: none;
+  }
+
+  /* Full-width container */
+  .container {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  /* Mobile typography */
+  .content h1 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+
+  .content h2 {
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+
+  .content h3,
+  .main-text,
+  .content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .content ul {
+    margin-top: 15px;
+  }
+
+  .content li {
+    font-size: 0.9rem;
+    margin: 10px 0;
+    padding-bottom: 10px;
+  }
+
+  /* Mobile title */
+  .title {
+    font-size: 1.8rem;
+    padding: 40px 20px;
+    width: 90%;
+    left: 50%;
+    line-height: 1.3;
+  }
+
+  /* Smaller highlights on mobile */
+  .highlight {
+    font-size: 15vw;
+    opacity: 0.5;
+  }
+
+  .image-placeholder {
+    padding: 15px 20px;
+    font-size: 0.7rem;
+  }
+
+  /* Ensure video fills mobile screen */
+  .vid-bg video {
+    min-width: 100%;
+    min-height: 100%;
+  }
 }
